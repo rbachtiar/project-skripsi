@@ -22,4 +22,9 @@ class PageController extends Controller
     {
         return view('kontak');
     }
+
+    public function login()
+    {
+        return view('login');
+    }
 }

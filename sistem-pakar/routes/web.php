@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+//login
+Route::get('login', 'PageController@login');
 
 Route::get('/', 'PageController@index');
 Route::get('/konsultasi', 'PageController@konsultasi');
