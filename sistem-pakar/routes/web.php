@@ -16,13 +16,15 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+//admin
+Route::get('admin', 'Admin\PageController@index');
 //login
 Route::get('login', 'PageController@login');
 
 Route::get('/', 'PageController@index');
-Route::get('/konsultasi', 'PageController@konsultasi');
-Route::get('/info', 'PageController@info');
-Route::get('/kontak', 'PageController@kontak');
+Route::get('konsultasi', 'PageController@konsultasi');
+Route::get('info', 'PageController@info');
+Route::get('kontak', 'PageController@kontak');
 
 
 
