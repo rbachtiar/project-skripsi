@@ -22,7 +22,7 @@ Coded by www.creative-tim.com
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>
-    Paper Dashboard 2 by Creative Tim
+  Admin
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -77,7 +77,7 @@ Coded by www.creative-tim.com
           <!-- <p>CT</p> -->
         </a>
         <a href="{{url('')}}" class="simple-text logo-normal">
-          Creative Tim
+          Admin
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -101,8 +101,8 @@ Coded by www.creative-tim.com
           <li>
           @endif
             <a href="{{url('kelas')}}">
-              <i class="nc-icon nc-bank"></i>
-              <p>Class</p>
+            <i class="fas fa-heartbeat"></i>
+              <p>Gejala<p>
             </a>
           </li>
           @if(Request::is('inventory'))
@@ -111,8 +111,19 @@ Coded by www.creative-tim.com
           <li>
           @endif
             <a href="{{url('inventory')}}">
-              <i class="nc-icon nc-briefcase-24"></i>
-              <p>Inventory</p>
+            <i class="fas fa-laptop-medical"></i>
+              <p>Penyakit</p>
+            </a>
+          </li>
+          </li>
+          @if(Request::is('inventory'))
+          <li class="active">
+          @else
+          <li>
+          @endif
+            <a href="{{url('inventory')}}">
+            <i class="fas fa-notes-medical"></i>
+              <p>Rules</p>
             </a>
           </li>
         </ul>

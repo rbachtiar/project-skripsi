@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 //admin
 Route::get('admin', 'Admin\PageController@index');
+
 //login
 Route::get('login', 'PageController@login');
 Route::post('login', 'LoginController@login');
