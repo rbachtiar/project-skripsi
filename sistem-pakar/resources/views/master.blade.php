@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     
 
     <!-- Title -->
@@ -81,7 +82,8 @@
     <script src="{{asset('user/js/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{asset('user/js/active.js')}}"></script>
-
+   <!-- for ajax user -->
+   @yield('ajax')
     <script type="text/javascript">$(function () {
            $(".input input")
               .focus(function () {
