@@ -21,6 +21,7 @@ Route::get('admin', 'Admin\PageController@index');
 
 //login
 Route::get('login', 'PageController@login');
+Route::post('login', 'LoginController@login');
 
 Route::get('/', 'PageController@index');
 Route::get('konsultasi', 'PageController@konsultasi');
