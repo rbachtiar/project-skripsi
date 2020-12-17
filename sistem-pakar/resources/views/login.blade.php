@@ -12,6 +12,8 @@
 
   <!-- Responsive CSS -->
   <link href="{{asset('user/css/responsive.css')}}" rel="stylesheet">
+  <!-- sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -22,9 +24,10 @@
         <button type="button" class="toggle-btn" onclick=login()>Log In</button>
         <button type="button" class="toggle-btn" onclick="register()">Register</button>
       </div>
-      <form id="login" class="form-group">
-        <input type="text" class="input-field" placeholder="User ID" required />
-        <input type="text" class="input-field" placeholder="Enter Password" required />
+      <form id="login" class="form-group" method="post" action="login">
+      @csrf
+        <input type="email" class="input-field" placeholder="Email" name="email" required />
+        <input type="text" class="input-field" placeholder="Enter Password" name="password" required />
         <input type="checkbox" class="check-box" /><span>Remmber Password</span>
         <button type="submit" class="submmit-btn">Log in</button>
       </form>
@@ -54,6 +57,16 @@
         }
   </script>
 
-</body>
+  <!-- show login failed -->
+  @if(session('login'))
+  <script type="text/javascript">
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Email atau Password salah!',
+			})
+    </script>
+  @endif
 
+</body>
 </html>
