@@ -9,16 +9,7 @@
               </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table" id="tabel-kelas">
-                            <thead class=" text-primary">
-                            <th>
-                                Nama Penyakit
-                            </th>
-                            <th>
-                                Aksi
-                            </th>
-                            </thead>
-                        </table>
+                    <div id="datatable-penyakit"></div>
                     </div>
                 </div>
             </div>
@@ -84,29 +75,26 @@
 @section('ajax')
 <script>
     $(document).ready( function () {
-        loadGejala();
-        function loadGejala() {
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        loadPenyakit();
+        function loadPenyakit() {
             $('#datatable-penyakit').load('{{url('a/penyakit/datatable')}}', function() {
-                var host = window.location.origin;
                 $('#penyakit-table').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: '/berita/data',
+                        url: '{{url('a/penyakit/table')}}',
                         type: 'GET'
                     },
                     columns: [
-                        {data: 'DT_RowIndex',name: 'DT_RowIndex',searchable: false},
-                        {data: 'judul',name: 'judul'},
-                        {
-                            data: 'gambar',
-                            name: 'gambar',
-                            "render": function(data, type, row) {
-                                return '<img src=" ' + host + '/'+ data + ' " style="height:100px;width:100px;"/>';
-                            },
-                            searchable: false
-                        },
-                        {data: 'name',name: 'name'},
+                        {data: 'kode_penyakit',name: 'kode_penyakit'},
+                        {data: 'penyakit',name: 'penyakit'},
+                        {data: 'info',name: 'info'},
+                        {data: 'solusi',name: 'solusi'},
                         {data: 'aksi',name: 'aksi',searchable: false,orderable: false}
                     ]
                 });

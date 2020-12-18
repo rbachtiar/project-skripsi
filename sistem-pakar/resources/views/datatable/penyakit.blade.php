@@ -5,6 +5,7 @@
       <th>Nama Penyakit</th>
       <th>Info Penyakit</th>
       <th>Solusi Penyakit</th>
+      <th>Aksi</th>
     </tr>
   </thead>
 </table>
