@@ -58,14 +58,14 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form id="form-gejala">
+            <form id="form-edit-gejala">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Kode Gejala</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_gejala" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_gejala_edit" id="kode_gejala" disabled>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Gejala</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="gejala" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="gejala_edit" id="gejala" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,46 +177,56 @@
         $('body').on('click', '.btn-edit-gejala', function(e) {
             e.preventDefault();
             $('#editGejala').modal('show');
-            var id = $(this).data('id');
+            var kode = $(this).data('id');
             $("#id").val(id);
             // console.log(id);
             $.ajax({
                 type: 'GET',
-                url: '{{url('a/gejala/')}}' + id,
+                url: '{{url('a/gejala/edit')}}' + '/' + kode,
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    if(data.success == true) {
-                        $('#editKelas').modal('show');
-                        console.log(data.data[0].room_name)
-                        $("#nama-edit").val(data.data[0].room_name);
-                    }
+                        $('#editGejala').modal('show');
+                        $("#kode_gejala").val(data.data[0].kode_gejala);
+                        $("#gejala").val(data.data[0].gejala);
                 }
             });
         });
 
         //update 
-        $('body').on('click', '#submit', function(e) {
+        $('body').on('click', '#edit-gejala', function(e) {
             e.preventDefault();
-            var id = $("#id").val();
-            var nama = $("#nama-edit").val();
-            $.ajax({
-                type: 'GET',
-                url: '/kelas/update/' + id,
-                data: {nama:nama},
-                success: function(data) {
-                    if(data.update == 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Berhasil update kelas!',
-                            showConfirmButton: false,
-                            timer: 1200
+            var data = $("#form-edit-gejala").serialize();
+            console.log(data);
+            var kode = $('input[name=kode_gejala_edit]').val();
+            var gejala = $('input[name=gejala_edit]').val();
+            if(kode == "" || gejala == ""){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Kode dan Gejala tidak boleh kosong!',
                         })
-                        location.reload();
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{url('a/gejala/update')}}' +  '/' + kode,
+                    data: data, 
+                    success: function(data) {
+                        if(data.update == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Sukses",
+                                text: 'Berhasil Edit Gejala',
+                                timer: 1200,
+                                showConfirmButton: false
+                            });
+                            $("#editGejala").modal("hide");
+                            $("#form-edit-gejala").trigger("reset");
+                            loadGejala();
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
     });

@@ -45,18 +45,21 @@ class GejalaController
 
     public function edit($kode)
     {
-        DB::table('gejala')->where('kode', $kode)->get();
-        
+        $data = DB::table('gejala')->where('kode_gejala', $kode)->get();
+        if($data) {
+            return response()->json([
+                'data' => $data
+            ]);
+        }
     }
 
     public function update(Request $request, $kode)
     {
-        $data = $request->all();
-        $save = DB::table('gejala')->where('kode', $kode)->update([$data]);
+        $gejala = $request->gejala_edit;
+        $save = DB::table('gejala')->where('kode_gejala', $kode)->update(['gejala' => $gejala]);
         if($save) {
             return response()->json([
-                'store' => 'success',
-                'data' => $data
+                'update' => 'success',
                 ]);
         }
     }
