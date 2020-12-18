@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Kelas</h4>
+                <h4 class="card-title"> Penyakit</h4>
                 <button class="btn btn-success float-right" data-toggle="modal" data-target="#tambahKelas">Tambah</button>
               </div>
                 <div class="card-body">
@@ -12,7 +12,7 @@
                         <table class="table" id="tabel-kelas">
                             <thead class=" text-primary">
                             <th>
-                                Nama Kelas
+                                Nama Penyakit
                             </th>
                             <th>
                                 Aksi
@@ -31,7 +31,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kelas</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Penyakit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -39,7 +39,7 @@
             <div class="modal-body">
             <form">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nama Kelas</label>
+                    <label for="exampleInputEmail1">Nama penyakit</label>
                     <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Nama Kelas" id="nama" required>
                 </div>
                 <div class="modal-footer">
@@ -84,16 +84,32 @@
 @section('ajax')
 <script>
     $(document).ready( function () {
-        loadTable();
-        function loadTable() {
-            $('#tabel-kelas').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: 'http://127.0.0.1:8000/kelas/data',
-                columns: [
-                    {data: 'room_name', name: 'room_name'},
-                    {data: 'aksi', name: 'aksi'},
-                ]
+        loadGejala();
+        function loadGejala() {
+            $('#datatable-penyakit').load('{{url('a/penyakit/datatable')}}', function() {
+                var host = window.location.origin;
+                $('#penyakit-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '/berita/data',
+                        type: 'GET'
+                    },
+                    columns: [
+                        {data: 'DT_RowIndex',name: 'DT_RowIndex',searchable: false},
+                        {data: 'judul',name: 'judul'},
+                        {
+                            data: 'gambar',
+                            name: 'gambar',
+                            "render": function(data, type, row) {
+                                return '<img src=" ' + host + '/'+ data + ' " style="height:100px;width:100px;"/>';
+                            },
+                            searchable: false
+                        },
+                        {data: 'name',name: 'name'},
+                        {data: 'aksi',name: 'aksi',searchable: false,orderable: false}
+                    ]
+                });
             });
         }
 
