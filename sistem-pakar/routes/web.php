@@ -36,7 +36,10 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
 
         //penyakit
         Route::group(['prefix' => 'penyakit'], function () {
-            Route::get('/', 'Admin\PageController@gejala');
+            Route::get('/', 'Admin\PageController@penyakit');
+            Route::post('/', 'Admin\PenyakitController@store');
+            Route::get('datatable', 'Admin\PenyakitController@loadTable');
+            Route::get('table', 'Admin\PenyakitController@index');
         });
         
 });

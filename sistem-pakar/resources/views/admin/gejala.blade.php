@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Kelas</h4>
+                <h4 class="card-title">Gejala</h4>
                 <button class="btn btn-success float-right" data-toggle="modal" data-target="#tambahGejala">Tambah</button>
               </div>
                 <div class="card-body">
