@@ -48,25 +48,28 @@
     </div>
 
     <!-- edit modal -->
-    <div class="modal fade" id="editKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="editGejala" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Gejala</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            <form method="POST" action="{{url('kelas')}}">
-                @csrf
+            <form id="form-gejala">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nama Kelas</label>
-                    <input type="text" class="form-control" id="nama-edit" aria-describedby="emailHelp" placeholder="Masukkan Nama Kelas" required>
+                    <label for="exampleInputEmail1">Kode Gejala</label>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_gejala" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Gejala</label>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="gejala" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Submit" id="submit">
+                    <input type="submit" class="btn btn-primary" value="Submit" id="edit-gejala">
                     <input type="hidden" id="id">
                 </div>
             </form>
@@ -87,26 +90,16 @@
         loadGejala();
         function loadGejala() {
             $('#datatable-gejala').load('{{url('a/gejala/datatable')}}', function() {
-                var host = window.location.origin;
                 $('#gejala-table').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: '/berita/data',
+                        url: '{{url('a/gejala/table')}}',
                         type: 'GET'
                     },
                     columns: [
-                        {data: 'DT_RowIndex',name: 'DT_RowIndex',searchable: false},
-                        {data: 'judul',name: 'judul'},
-                        {
-                            data: 'gambar',
-                            name: 'gambar',
-                            "render": function(data, type, row) {
-                                return '<img src=" ' + host + '/'+ data + ' " style="height:100px;width:100px;"/>';
-                            },
-                            searchable: false
-                        },
-                        {data: 'name',name: 'name'},
+                        {data: 'kode_gejala',name: 'kode_gejala'},
+                        {data: 'gejala',name: 'gejala'},
                         {data: 'aksi',name: 'aksi',searchable: false,orderable: false}
                     ]
                 });
@@ -141,13 +134,14 @@
                             });
                             $("#tambahGejala").modal("hide");
                             $("#form-gejala").trigger("reset");
+                            loadGejala();
                         }
                     }
                 });
             }
         });
-
-        $('body').on('click', '.btn-delete-kelas', function(e) {
+        //delete
+        $('body').on('click', '.btn-delete-gejala', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             // console.log(id)
@@ -163,14 +157,13 @@
                 if (!result.isConfirmed) {
                     $.ajax({
                         type: 'GET',
-                        url: 'kelas/delete/' + id,
+                        url: "{{url('a/gejala/delete')}}" + '/' + id,
                         contentType: false,
                         processData: false,
                         success: function(data) {
                             if(data.delete == 'success') {
                                 Swal.fire('Deleted!', '', 'success')
-                                deleteSensor(id)
-                                setTimeout(reload, 3000);
+                                loadGejala();
                             }
                         }
                     });
@@ -180,16 +173,16 @@
             })
         });
 
-        //edit kelas
-        $('body').on('click', '.btn-edit-kelas', function(e) {
+        //edit gejala
+        $('body').on('click', '.btn-edit-gejala', function(e) {
             e.preventDefault();
-            $('#editKelas').modal('show');
+            $('#editGejala').modal('show');
             var id = $(this).data('id');
             $("#id").val(id);
-            console.log(id);
+            // console.log(id);
             $.ajax({
                 type: 'GET',
-                url: '/kelas/edit/' + id,
+                url: '{{url('a/gejala/')}}' + id,
                 contentType: false,
                 processData: false,
                 success: function(data) {

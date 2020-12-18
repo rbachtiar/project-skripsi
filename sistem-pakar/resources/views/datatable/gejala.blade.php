@@ -3,6 +3,7 @@
     <tr>
       <th>Kode</th>
       <th>Gejala</th>
+      <th>Aksi</th>
     </tr>
   </thead>
 </table>

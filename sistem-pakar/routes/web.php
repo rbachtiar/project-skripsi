@@ -29,6 +29,9 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::post('/', 'Admin\GejalaController@store');
             Route::get('datatable', 'Admin\GejalaController@loadTable');
             Route::get('table', 'Admin\GejalaController@index');
+            Route::get('update/{kode}', 'Admin\GejalaController@update');
+            Route::get('edit/{kode}', 'Admin\GejalaController@edit');
+            Route::get('delete/{kode}', 'Admin\GejalaController@destroy');
         });
 
         //penyakit

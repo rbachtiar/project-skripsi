@@ -187,7 +187,7 @@ Coded by www.creative-tim.com
   <script src="{{ asset('admin/demo/demo.js') }}"></script>
   <!-- jquery -->
   <!-- added cdn datatable --> 
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   <script>
