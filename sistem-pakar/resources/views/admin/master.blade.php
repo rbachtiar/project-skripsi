@@ -40,33 +40,6 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="">
-  <!-- firebase -->
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyBtmZSiGX2P28UHlKr7L_LNM4HtxOMuaFg",
-    authDomain: "uas-android-1c142.firebaseapp.com",
-    databaseURL: "https://uas-android-1c142.firebaseio.com",
-    projectId: "uas-android-1c142",
-    storageBucket: "uas-android-1c142.appspot.com",
-    messagingSenderId: "194568149241",
-    appId: "1:194568149241:web:033adc9798278f3fa12a28",
-    measurementId: "G-9BVBC5736T"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
-
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
@@ -85,7 +58,7 @@ Coded by www.creative-tim.com
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          @if(Request::is('/'))
+          @if(Request::is('a'))
           <li class="active">
           @else
           <li class=" ">
@@ -95,33 +68,33 @@ Coded by www.creative-tim.com
               <p>Dashboard</p>
             </a>
           </li>
-          @if(Request::is('kelas'))
+          @if(Request::is('a/gejala'))
           <li class="active">
           @else
           <li>
           @endif
-            <a href="{{url('kelas')}}">
+            <a href="{{url('a/gejala')}}">
             <i class="fas fa-heartbeat"></i>
               <p>Gejala<p>
             </a>
           </li>
-          @if(Request::is('inventory'))
+          @if(Request::is('a/penyakit'))
           <li class="active">
           @else
           <li>
           @endif
-            <a href="{{url('inventory')}}">
+            <a href="{{url('a/penyakit')}}">
             <i class="fas fa-laptop-medical"></i>
               <p>Penyakit</p>
             </a>
           </li>
           </li>
-          @if(Request::is('inventory'))
+          @if(Request::is('a/rule'))
           <li class="active">
           @else
           <li>
           @endif
-            <a href="{{url('inventory')}}">
+            <a href="{{url('a/rule')}}">
             <i class="fas fa-notes-medical"></i>
               <p>Rules</p>
             </a>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 
 class PageController extends Controller
 {
@@ -25,6 +27,14 @@ class PageController extends Controller
 
     public function login()
     {
-        return view('login');
+        $cookie = Cookie::get('login');
+        if($cookie != null) {
+            $value = Crypt::decryptString($cookie);
+            if($value == 'login true') {
+                return redirect('admin');
+            } 
+        } else {
+            return view('login');
+        }
     }
 }

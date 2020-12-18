@@ -10,4 +10,14 @@ class PageController
     {
         return view('admin.dashboard');
     }
+
+    public function gejala()
+    {
+        return view('admin.gejala');
+    }
+
+    public function penyakit()
+    {
+        return view('admin.penyakit');
+    }
 }

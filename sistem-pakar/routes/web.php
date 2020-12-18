@@ -16,13 +16,27 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-//admin
-Route::get('admin', 'Admin\PageController@index');
 
 //login
 Route::get('login', 'PageController@login');
 Route::post('login', 'LoginController@login');
+//admin
+Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
+        Route::get('/', 'Admin\PageController@index');
+        //gejala
+        Route::group(['prefix' => 'gejala'], function () {
+            Route::get('/', 'Admin\PageController@gejala');
+            Route::post('/', 'Admin\GejalaController@store');
+            Route::get('datatable', 'Admin\GejalaController@loadTable');
+            Route::get('table', 'Admin\GejalaController@index');
+        });
 
+        //penyakit
+        Route::group(['prefix' => 'penyakit'], function () {
+            Route::get('/', 'Admin\PageController@gejala');
+        });
+        
+});
 Route::get('/', 'PageController@index');
 Route::get('konsultasi', 'PageController@konsultasi');
 Route::get('info', 'PageController@info');

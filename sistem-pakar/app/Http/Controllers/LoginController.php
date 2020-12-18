@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
 {
@@ -11,7 +12,10 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials)) {
-            return redirect('/admin');
+            $value = Crypt::encryptString('login true');
+            return redirect('/a')->cookie(
+                'login', $value, 3600
+            );
         } else {
             return redirect()->back()->with(['login' => 'false']);
         }
