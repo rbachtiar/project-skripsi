@@ -10,7 +10,7 @@ class PenyakitController
 {
     public function index()
     {
-        $data = DB::table('penyakit')->orderBy('id', 'desc')->get();
+        $data = DB::table('penyakit')->orderBy('kode_penyakit', 'desc')->get();
       return Datatables::of($data)
       ->addIndexColumn()
       ->addColumn('aksi', function($row){
