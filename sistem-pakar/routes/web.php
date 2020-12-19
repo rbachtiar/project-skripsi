@@ -40,6 +40,9 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::post('/', 'Admin\PenyakitController@store');
             Route::get('datatable', 'Admin\PenyakitController@loadTable');
             Route::get('table', 'Admin\PenyakitController@index');
+            Route::post('update/{kode}', 'Admin\PenyakitController@update');
+            Route::get('edit/{kode}', 'Admin\PenyakitController@edit');
+            Route::get('delete/{kode}', 'Admin\PenyakitController@destroy');
         });
         
 });
