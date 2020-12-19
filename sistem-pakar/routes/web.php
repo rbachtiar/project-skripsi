@@ -41,6 +41,18 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::get('datatable', 'Admin\PenyakitController@loadTable');
             Route::get('table', 'Admin\PenyakitController@index');
         });
+
+
+
+        //rule
+        Route::group(['prefix' => 'rule'], function () {
+            Route::get('/', 'Admin\RuleController@index');
+            Route::get('table', 'Admin\RuleController@getRules');
+            Route::get('datatable', 'Admin\RuleController@loadTable');
+            Route::post('/', 'Admin\RuleController@store');
+            Route::get('gejala', 'Admin\RuleController@getGejala');
+            Route::get('penyakit', 'Admin\RuleController@getPenyakit');
+        });
         
 });
 Route::get('/', 'PageController@index');

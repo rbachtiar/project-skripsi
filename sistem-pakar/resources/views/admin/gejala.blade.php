@@ -28,7 +28,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form id="form-gejala">
+            <form id="form-gejala" method="">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Kode Gejala</label>
                     <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_gejala" required>
