@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <!-- Title -->
+  <title>Login</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{asset('user/img/core-img/dentis.png')}}">
+
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{{asset('user/css/login.css')}}">
+
+  <!-- Responsive CSS -->
+  <link href="{{asset('user/css/responsive.css')}}" rel="stylesheet">
+  <!-- sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="form-box">
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" class="toggle-btn" onclick=login()>Log In</button>
+        <button type="button" class="toggle-btn" onclick="register()">Register</button>
+      </div>
+      <form id="login" class="form-group" method="post" action="login">
+      @csrf
+        <input type="email" class="input-field" placeholder="Email" name="email" required />
+        <input type="text" class="input-field" placeholder="Enter Password" name="password" required />
+        <input type="checkbox" class="check-box" /><span>Remmber Password</span>
+        <button type="submit" class="submmit-btn">Log in</button>
+      </form>
+      <form id="register" class="form-group">
+        <input type="text" class="input-field" placeholder="User ID" required />
+        <input type="email" class="input-field" placeholder="Email" required />
+        <input type="text" class="input-field" placeholder="Enter Password" required />
+        <input type="checkbox" class="check-box" /><span>I agree to the termes &amp; conditions</span>
+        <button type="submit" class="submmit-btn">Register</button>
+      </form>
+    </div>
+  
+  
+  <script>
+       var log=document.getElementById("login"),
+            reg=document.getElementById("register"),
+            btn=document.getElementById("btn");
+        function register(){
+            log.style.left="-400px";
+            reg.style.left="50px";
+            btn.style.left="110px"
+        }
+      function login(){
+            log.style.left="50px";
+            reg.style.left="450px";
+            btn.style.left="0"
+        }
+  </script>
+
+  <!-- show login failed -->
+  @if(session('login'))
+  <script type="text/javascript">
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Email atau Password salah!',
+			})
+    </script>
+  @endif
+
+</body>
+</html>
