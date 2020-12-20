@@ -15,8 +15,10 @@ class CreateRulesTable extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_penyakit');
-            $table->text('kode_gejala');
+            $table->string('kode_gejala');
+            $table->text('gejala');
+            $table->string('ya')->nullable();
+            $table->string('tidak')->nullable();
             $table->timestamps();
         });
     }

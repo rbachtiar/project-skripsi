@@ -63,7 +63,7 @@ Coded by www.creative-tim.com
           @else
           <li class=" ">
           @endif
-            <a href="{{url('/')}}">
+            <a href="{{url('/a')}}">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>

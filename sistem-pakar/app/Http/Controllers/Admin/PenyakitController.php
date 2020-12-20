@@ -54,12 +54,12 @@ class PenyakitController
 
     public function update(Request $request, $kode)
     {
-        $gejala = $request->penyakit_edit;
-        $save = DB::table('penyakit')->where('kode_penyakit', $kode)->update(['penyakit' => $penyakit]);
+        $data = $request->all();
+        $save = DB::table('penyakit')->where('kode_penyakit', $kode)->update($data);
         if($save) {
             return response()->json([
                 'update' => 'success',
-                ]);
+            ]);
         }
     }
 

@@ -54,12 +54,16 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::get('datatable', 'Admin\RuleController@loadTable');
             Route::post('/', 'Admin\RuleController@store');
             Route::get('gejala', 'Admin\RuleController@getGejala');
+            Route::get('data', 'Admin\RuleController@data');
+            Route::get('dg/{kode}', 'Admin\RuleController@detailGejala');
             Route::get('penyakit', 'Admin\RuleController@getPenyakit');
+            Route::get('edit/{id}', 'Admin\RuleController@edit');
         });
         
 });
 Route::get('/', 'PageController@index');
 Route::get('konsultasi', 'PageController@konsultasi');
+Route::get('konsultasi/data/{params}', 'KonsultasiController@konsultasiData');
 Route::get('info', 'PageController@info');
 Route::get('kontak', 'PageController@kontak');
 

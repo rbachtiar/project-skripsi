@@ -31,19 +31,19 @@
             <form id="form-penyakit" method="">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Kode Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_penyakit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Penyakit" name="kode_penyakit" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nama Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="penyakit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="penyakit" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Info Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="info" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="info" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Solusi Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="solusi" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="solusi" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -60,33 +60,33 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Edit Gejala</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Penyakit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            <form id="form-penyakit">
+            <form id="form-penyakit-edit" method="">
             <div class="form-group">
                     <label for="exampleInputEmail1">Kode Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Gejala" name="kode_penyakit_edit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Kode Penyakit" name="kode_penyakit_edit" disabled>
+                    <input type="hidden" id="id">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nama Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="penyakit_edit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="penyakit_edit" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Info Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="info_edit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="info_edit" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Solusi Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Gejala" name="solusi_edit" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="solusi_edit" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-primary" value="Submit" id="edit-penyakit">
-                    <input type="hidden" id="id">
                 </div>
             </form>
             </div>
@@ -124,10 +124,11 @@
             });
         }
 
-        //tambah gejala
+        //tambah penyakit
         $('body').on('submit', '#form-penyakit', function(e) {
             e.preventDefault();
             var data = $("#form-penyakit").serialize();
+            console.log(data);
                 $.ajax({
                     type: 'POST',
                     url: '{{url('a/penyakit')}}',
@@ -194,22 +195,31 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                        $('#editPenyakit').modal('show');
-                        $("input[name=kode_penyakit_edit]").val(data.data[0].kode_penyakit);
+                    $('#editPenyakit').modal('show');
+                    $("input[name=kode_penyakit_edit]").val(data.data[0].kode_penyakit);
+                    $("input[name=penyakit_edit]").val(data.data[0].penyakit);
+                    $("input[name=info_edit]").val(data.data[0].info);
+                    $("input[name=solusi_edit]").val(data.data[0].solusi);
                 }
             });
         });
 
         //update 
-        $('body').on('submit', '#submit', function(e) {
+        $('body').on('submit', '#form-penyakit-edit', function(e) {
             e.preventDefault();
-            var id = $("#id").val();
-            var nama = $("#nama-edit").val();
+            var formData = new FormData();
+            var kode = $("#id").val();
+            formData.append('penyakit', $("input[name=penyakit_edit]").val());
+            formData.append('info', $("input[name=info_edit]").val());
+            formData.append('solusi', $("input[name=solusi_edit]").val());
             $.ajax({
-                type: 'GET',
-                url: '/penyakit/update/' + id,
-                data: {nama:nama},
+                type: 'POST',
+                url: '{{url('a/penyakit/update')}}' + '/' + kode,
+                data: formData,
+                contentType: false,
+                processData: false,
                 success: function(data) {
+                    console.log(data.update);
                     if(data.update == 'success') {
                         Swal.fire({
                             icon: 'success',
@@ -218,7 +228,9 @@
                             showConfirmButton: false,
                             timer: 1200
                         })
-                        location.reload();
+                        $("#form-penyakit-edit").trigger("reset");
+                        $('#editPenyakit').modal('hide');
+                        loadPenyakit();
                     }
                 }
             });

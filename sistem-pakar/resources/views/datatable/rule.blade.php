@@ -6,6 +6,7 @@
       <th>Pertanyaan</th>
       <th>Ya</th>
       <th>Tidak</th>
+      <th>Aksi</th>
     </tr>
   </thead>
 </table>

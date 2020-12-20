@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DataTables;
+use Illuminate\Support\Collection;
 
 class RuleController
 {
@@ -24,26 +26,35 @@ class RuleController
         return response()->json(['data' => $data]);
     }
 
+    public function data()
+    {
+        $gejala = DB::table('gejala')->get();
+        $penyakit = DB::table('penyakit')->get();
+        return response()->json(['gejala' => $gejala, 'penyakit' => $penyakit]);
+    }
+
+    public function detailGejala($kode)
+    {
+        $gejala = DB::table('gejala')->where('kode_gejala', $kode)->get();
+        return response()->json(['gejala' => $gejala]);
+    }
+
     public function getRules()
     {
-        $gejala = array();
-        $data = DB::table('rules')
-        ->join('penyakit', 'rules.kode_penyakit', '=', 'penyakit.kode_penyakit')
-        // ->join('gejala', 'rules.kode_gejala', '=', 'gejala.kode_gejala')
-        ->select('penyakit.penyakit', 'rules.kode_gejala')->orderBy('rules.kode_penyakit', 'asc')->get();
-        // $gejala = DB::table('rules')->select('kode_gejala')->orderBy('kode_penyakit', 'asc')->get();
-        for ($i=0; $i < count($data); $i++) { 
-            $gejala = $data[$i]->kode_gejala;
-        }
-        // dd($penyakit);
-        // $gejalaData = DB::table('')
-        $gejala = json_decode($data);
-        dd($gejala);
-        // $response = [
-        //     'success' => true,
-        //     'data' => $data
-        // ];
-        // return response()->json($response);
+        $data = DB::table('rules')->get();
+        return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('aksi', function($row){
+            $btn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btn-edit-rule" style="font-size: 18pt; text-decoration: none;" class="mr-3">
+            <i class="fas fa-pen-square"></i>
+            </a>';
+            $btn = $btn. '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btn-delete-rule" style="font-size: 18pt; text-decoration: none; color:red;">
+            <i class="fas fa-trash"></i>
+            </a>';
+            return $btn;
+            })
+        ->rawColumns(['aksi'])
+        ->make(true);
     }
 
     public function loadTable()
@@ -53,11 +64,16 @@ class RuleController
 
     public function store(Request $request)
     {
-        $data = $request->gejala;
-        $penyakit = $request->penyakit;
-        $save = DB::table('rules')->insert(['kode_penyakit' => $penyakit, 'kode_gejala' => json_encode($data)]);
+        $data = $request->all();
+        $save = DB::table('rules')->insert([$data]);
         if($save) {
             return response()->json(['store' => 'success']);
         }
+    }
+
+    public function edit($id)
+    {
+        $data = DB::table('rules')->where('id', $id)->get();
+        return response()->json(['data' => $data]);
     }
 }

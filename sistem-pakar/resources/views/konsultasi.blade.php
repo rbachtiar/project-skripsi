@@ -18,18 +18,20 @@
                            </div>
                           </div>
                           <center style="margin-bottom: 5%;">
-                              <span>
-                                 Bau mulut tak sedap ?
+                              <span id="gejala">
+                                 <!-- Bau mulut tak sedap ? -->
                               </span>
                            </center>
                         </div>
-                           <a href="#" class="btn btn-1">
+                           <a href="#" class="btn btn-1" id="btn-ya">
+                           <input type="hidden" id="kode-ya">
                                <svg>
                                  <rect x="0" y="0" fill="none" width="100%" height="100%"/>
                                </svg>
                               YA
                            </a>
-                           <a href="#" class="btn btn-1">
+                           <a href="#" class="btn btn-1" id="btn-tidak">
+                           <input type="hidden" id="kode-tidak">
                                <svg>
                                  <rect x="0" y="0" fill="none" width="100%" height="100%"/>
                                </svg>
@@ -54,52 +56,56 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
          }
       });
+      loadKonsultasi("G13");
+      //tampil konsultasi
+      function loadKonsultasi(params)
+      {
+         // var params = "G1";
+         $("#gejala").empty();
+         $.ajax({
+            type: 'GET',
+            url: '{{url('konsultasi/data')}}' + '/' + params,
+            success: function(data) {
+               console.log(data.data);
+               $("#gejala").append(data.data[0].gejala);
+               $("#kode-ya").val(data.data[0].ya);
+               $("#kode-tidak").val(data.data[0].tidak);
+            }
+         });
+      }
 
-      //store
-      $('body').on('submit', '#form-tambah-inventory', function(e) {
-            e.preventDefault();
-            var formData = new FormData();
-            var nama = $('input[name=nama]').val();
-            var label = $('input[name=label]').val();
-            var tahun = $('input[name=tahun]').val();
-            var jumlah = $('input[name=jumlah]').val();
-            var sumberDana = $('input[name=sumber_dana]').val();
-            var keterangan = $('input[name=keterangan]').val();
-            var gambar = $('#gambar')[0].files[0];
-            var kondisi = $('select[name=kondisi] option').filter(':selected').val()
-            var idRoom = $('select[name=kelas] option').filter(':selected').val()
-            formData.append('nama', nama);
-            formData.append('label', label);
-            formData.append('tahun', tahun);
-            formData.append('jumlah', jumlah);
-            formData.append('kondisi', kondisi);
-            formData.append('sumber_dana', sumberDana);
-            formData.append('keterangan', keterangan);
-            formData.append('id_room', idRoom);
-            formData.append('gambar', gambar);
-            console.log(idRoom);
-            $.ajax({
-                type: 'POST',
-                url: 'inventory',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                  if(data.success == true) {
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Success',
-                      text: 'Berhasil tambah data!',
-                      showConfirmButton: false,
-                      timer: 1200
-                    })
-                    $("#tambahInventory").modal("hide");
-                    $("#form-tambah-inventory").trigger("reset");
-                    location.reload();
+      $('body').on('click', '#btn-ya', function(e) {
+         e.preventDefault();
+         // console.log('ok');
+         var params = $("#kode-ya").val();
+         $.ajax({
+               type: 'GET',
+               url: '{{url('konsultasi/data')}}' + '/' + params,
+               success: function(data) {
+                  if(data.next == "P") {
+                     console.log(data.data);
+                  } else if(data.next == "G"){
+                     loadKonsultasi(params);
                   }
-                }
+               }
             });
-        });
+      });
+      //button tidak
+      $('body').on('click', '#btn-tidak', function(e) {
+         e.preventDefault();
+         var params = $("#kode-tidak").val();
+            $.ajax({
+               type: 'GET',
+               url: '{{url('konsultasi/data')}}' + '/' + params,
+               success: function(data) {
+                  if(data.next == "P") {
+                     console.log(data.data);
+                  } else if(data.next == "G"){
+                     loadKonsultasi(params);
+                  }
+               }
+            });
+      });
 
    });
 </script>
