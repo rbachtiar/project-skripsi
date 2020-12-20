@@ -38,7 +38,7 @@
                               TIDAK
                              </a>
                        
-                     <input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="DIAGNOSA">
+                     <!-- <input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="DIAGNOSA"> -->
                      </form>
                      </center>
                   </div>
