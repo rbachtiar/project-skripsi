@@ -110,6 +110,7 @@ iframe {
   justify-content: center;
   flex-wrap: wrap;
   padding: 33px 30px;
+  margin-top: 15%;
 }
 
 .wrap-table100 {
@@ -449,4 +450,8 @@ th, td {
 
 .table100.ver6 .row100 td:hover {
   background-color: rgba(255,255,255,0.2);
+}
+
+.font20 {
+  font-size: 20px;
 }

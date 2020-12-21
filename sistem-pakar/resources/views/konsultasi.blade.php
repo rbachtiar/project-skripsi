@@ -10,14 +10,14 @@
                         <head>
                            <link rel="stylesheet" href="{{asset('user/css/qw.css')}}">
                         </head>	
-                     <form class="col-12 " method="POST" action="proses.php" style="width: 100vh;">
+                     <!-- <form class="col-12 " method="POST" action="proses.php" style="width: 100vh;"> -->
                        
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                           <div class="input-group-text">
-                           </div>
+                           
                           </div>
-                          <center style="margin-bottom: 5%;">
+                          <center style="margin: auto;">
+                          <input type="hidden" id="gejala-hide">
                               <span id="gejala">
                                  <!-- Bau mulut tak sedap ? -->
                               </span>
@@ -39,7 +39,7 @@
                              </a>
                        
                      <!-- <input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="DIAGNOSA"> -->
-                     </form>
+                     <!-- </form> -->
                      </center>
                   </div>
               </div>              
@@ -62,11 +62,16 @@
       {
          // var params = "G1";
          $("#gejala").empty();
+         // var mKode = kode;
+         // var mYa = ya;
+         // var mTidak = tidak;
+         // console.log(mKode);
          $.ajax({
             type: 'GET',
             url: '{{url('konsultasi/data')}}' + '/' + params,
             success: function(data) {
-               console.log(data.data);
+               console.log(data.data[0].kode_gejala);
+               $("#gejala-hide").val(data.data[0].gejala);
                $("#gejala").append(data.data[0].gejala);
                $("#kode-ya").val(data.data[0].ya);
                $("#kode-tidak").val(data.data[0].tidak);
@@ -84,8 +89,33 @@
                success: function(data) {
                   if(data.next == "P") {
                      console.log(data.data);
+                     var penyakit = params
+                     $.ajax({
+                        type: 'POST',
+                        url: '{{url('konsultasi/post')}}',
+                        data: {kode:penyakit},
+                        success: function(data) {
+                           if(data.update_pengunjung == "success") {
+                              window.location.href = 'http://127.0.0.1:8000/diagnosa';
+                           }
+                        }
+                     });
                   } else if(data.next == "G"){
                      loadKonsultasi(params);
+                     var form = new FormData();
+                     var gejala = $("#gejala-hide").val();
+                     console.log(gejala);
+                     form.append('gejala', gejala);
+                     $.ajax({
+                        type: 'POST',
+                        url: '{{url('konsultasi/save')}}',
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                           console.log(data.save_gejala);
+                        }
+                     });
                   }
                }
             });
@@ -99,7 +129,18 @@
                url: '{{url('konsultasi/data')}}' + '/' + params,
                success: function(data) {
                   if(data.next == "P") {
-                     console.log(data.data);
+                     var penyakit = params
+                     $.ajax({
+                        type: 'POST',
+                        url: '{{url('konsultasi/post')}}',
+                        data: {kode:penyakit},
+                        success: function(data) {
+                           console.log('save  jalan');
+                           if(data.update_pengunjung == "success") {
+                              window.location.href = 'http://127.0.0.1:8000/diagnosa';
+                           }
+                        }
+                     });
                   } else if(data.next == "G"){
                      loadKonsultasi(params);
                   }

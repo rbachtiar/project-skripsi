@@ -73,7 +73,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form id="form-rule" method="">
+            <form id="form-rule-edit" method="">
                 <div class="form-group">
                     <select class="custom-select" id="select-gejala-edit">
                     </select>
@@ -160,7 +160,7 @@
                             contentType: false,
                             processData: false,
                             success: function(data) {
-                                $("#text-gejala").val(data.gejala[0].gejala + '?');
+                                $("#text-gejala").val(data.gejala[0].gejala);
                             }
                         });
                     });
@@ -249,6 +249,7 @@
             $("#select-ya-penyakit-edit").empty();
             $("#select-tidak-gejala-edit").empty();
             $("#select-tidak-penyakit-edit").empty();
+            $("#id-edit").val(id);
             $.ajax({
                 type: 'GET',
                 url: '{{url('a/rule/data')}}',
@@ -264,7 +265,7 @@
                             contentType: false,
                             processData: false,
                             success: function(data) {
-                                $("#text-gejala-edit").val(data.gejala[0].gejala + '?');
+                                $("#text-gejala-edit").val(data.gejala[0].gejala);
                             }
                         });
                     });
@@ -309,6 +310,87 @@
                     });
                 }
             });
+        });
+
+        //update rule
+        $('body').on('click', '#submit-rule-edit', function(e) {
+            e.preventDefault();
+            var formData = new FormData();
+            var id = $("#id-edit").val();
+            //ambil data penyakit
+            var kodeGejala = $("#select-gejala-edit").children("option:selected").val();
+            var yaGejala = $("#select-ya-gejala-edit").children("option:selected").val();
+            var yaPenyakit = $("#select-ya-penyakit-edit").children("option:selected").val();
+            var tidakGejala = $("#select-tidak-gejala-edit").children("option:selected").val();
+            var tidakPenyakit = $("#select-tidak-penyakit-edit").children("option:selected").val();
+            var gejala = $("#text-gejala-edit").val();
+            formData.append('kode_gejala', kodeGejala);
+            formData.append('gejala', gejala);
+            if(yaGejala != "") {
+                formData.append('ya', yaGejala);
+            } else if(yaPenyakit != "") {
+                formData.append('ya', yaPenyakit);
+            }
+            if(tidakGejala != "") {
+                formData.append('tidak', tidakGejala);
+            } else if(tidakPenyakit != "") {
+                formData.append('tidak', tidakPenyakit);
+            }
+            console.log(yaGejala);
+            $.ajax({
+                type: 'POST',
+                url: '{{url('a/rule/update')}}' + '/' + id,
+                data: formData, 
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    // console.log(data.store);
+                    if(data.store == "success") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Sukses",
+                            text: 'Berhasil Update Rule',
+                            timer: 1200,
+                            showConfirmButton: false
+                        });
+                        $('#editRule').modal('hide');
+                        $("#form-rule-edit").trigger("reset");
+                        loadRule();
+                    }
+                }
+            });
+        });
+        //delete
+        $('body').on('click', '.btn-delete-rule', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            // console.log(id)
+            Swal.fire({
+                title: 'Anda yakin ingin menghapus Rule?'+
+                'Anda tidak dapat membatalkan aksi ini!',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `No`,
+                denyButtonText: `Delete`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (!result.isConfirmed) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{url('a/rule/delete')}}" + '/' + id,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            if(data.delete == 'success') {
+                                Swal.fire('Deleted!', '', 'success')
+                                loadRule();
+                            }
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire('Rule tidak dihapus', '', 'info')
+                }
+            })
         });
 
     });

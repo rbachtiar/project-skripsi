@@ -7,7 +7,7 @@
               <div class="col-12 col-md-6">
                   <div class="olv-features-thumb wow fadeIn" data-wow-delay="0.5s">
                      <center> 
-                     <img src="img/core-img/kontek.jpg" alt="">
+                     <img src="{{asset('user/img/core-img/kontek.jpg')}}" alt="">
                      </center>
                   </div>
               </div>

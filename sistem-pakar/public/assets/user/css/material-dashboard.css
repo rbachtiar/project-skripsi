@@ -1014,6 +1014,7 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+  width: -webkit-fill-available;
 }
 
 .no-gutters {
@@ -1100,8 +1101,8 @@ pre code {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px; */
+  padding-left: 10%;
 }
 
 .col {
@@ -3867,7 +3868,7 @@ tbody.collapse.show {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .input-group>.form-control,
