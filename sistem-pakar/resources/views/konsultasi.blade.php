@@ -16,7 +16,7 @@
                           <div class="input-group-prepend">
                            
                           </div>
-                          <center style="margin-bottom: 5%;">
+                          <center style="margin: auto;">
                           <input type="hidden" id="gejala-hide">
                               <span id="gejala">
                                  <!-- Bau mulut tak sedap ? -->
