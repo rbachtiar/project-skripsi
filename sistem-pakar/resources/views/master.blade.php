@@ -43,7 +43,7 @@
                             <div class="collapse navbar-collapse justify-content-end" id="olv-navbar">
                                 <ul class="navbar-nav animated" id="nav">
                                     <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">Home</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{url('konsultasi')}}">Konsultasi</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url('pre')}}">Konsultasi</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{url('info')}}">Info</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{url('kontak')}}">Kontak</a></li>
                                 </ul>

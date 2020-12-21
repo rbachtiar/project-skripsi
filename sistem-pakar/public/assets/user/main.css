@@ -109,6 +109,7 @@ iframe {
   justify-content: center;
   flex-wrap: wrap;
   padding: 33px 30px;
+  /* margin-top: 9%; */
 }
 
 .wrap-table100 {
@@ -148,7 +149,7 @@ th, td {
 
 .table100.ver6 {
   border-radius: 16px;
-  overflow: hidden;
+  /* overflow: hidden; */
   background: #7918f2;
   background: -webkit-linear-gradient(-68deg, #ac32e4 , #4801ff);
   background: -o-linear-gradient(-68deg, #ac32e4 , #4801ff);

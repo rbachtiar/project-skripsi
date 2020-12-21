@@ -76,4 +76,25 @@ class RuleController
         $data = DB::table('rules')->where('id', $id)->get();
         return response()->json(['data' => $data]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $data = [
+            'ya' => $request->ya,
+            'tidak' => $request->tidak
+        ];
+        // dd($data);
+        $save = DB::table('rules')->where('id', $id)->update($data);
+        if($save) {
+            return response()->json(['store' => 'success']);
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::table('rules')->where('id', $id)->delete();
+        return response()->json([
+            'delete' => 'success',
+        ]);
+    }
 }

@@ -45,8 +45,6 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::get('delete/{kode}', 'Admin\PenyakitController@destroy');
         });
 
-
-
         //rule
         Route::group(['prefix' => 'rule'], function () {
             Route::get('/', 'Admin\RuleController@index');
@@ -58,12 +56,19 @@ Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
             Route::get('dg/{kode}', 'Admin\RuleController@detailGejala');
             Route::get('penyakit', 'Admin\RuleController@getPenyakit');
             Route::get('edit/{id}', 'Admin\RuleController@edit');
+            Route::post('update/{id}', 'Admin\RuleController@update');
+            Route::get('delete/{id}', 'Admin\RuleController@destroy');
         });
         
 });
 Route::get('/', 'PageController@index');
 Route::get('konsultasi', 'PageController@konsultasi');
+Route::post('konsultasi/save', 'KonsultasiController@storeGejalaPengunjung');
+Route::post('konsultasi/post', 'KonsultasiController@postFinal');
 Route::get('konsultasi/data/{params}', 'KonsultasiController@konsultasiData');
+Route::get('diagnosa', 'PageController@diagnosa');
+Route::get('pre', 'PageController@pre');
+Route::post('pre', 'KonsultasiController@storePengunjung');
 Route::get('info', 'PageController@info');
 Route::get('kontak', 'PageController@kontak');
 
