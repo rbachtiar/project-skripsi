@@ -133,7 +133,7 @@ Coded by www.creative-tim.com
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item" href="{{url('logout')}}">Logout</a>
                   
                 </div>
               </li>

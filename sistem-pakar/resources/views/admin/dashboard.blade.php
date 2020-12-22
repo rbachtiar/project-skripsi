@@ -13,7 +13,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Pengunjung</p>
-                      <p class="card-title">3<p>
+                      <p class="card-title">{{$data[0]}}<p}>
                     </div>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Gejala</p>
-                      <p class="card-title">6<p>
+                      <p class="card-title">{{$data[1]}}<p>
                     </div>
                   </div>
                 </div>
@@ -65,7 +65,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Penyakit</p>
-                      <p class="card-title">23<p>
+                      <p class="card-title">{{$data[2]}}<p>
                     </div>
                   </div>
                 </div>
@@ -91,7 +91,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Rules</p>
-                      <p class="card-title">10<p>
+                      <p class="card-title">{{$data[3]}}<p>
                     </div>
                   </div>
                 </div>

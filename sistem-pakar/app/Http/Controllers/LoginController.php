@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Cookie;
 
 class LoginController extends Controller
 {
@@ -19,5 +20,11 @@ class LoginController extends Controller
         } else {
             return redirect()->back()->with(['login' => 'false']);
         }
+    }
+
+    public function logout()
+    {
+        $cookie = Cookie::forget('login');
+        return redirect('login')->withCookie($cookie);
     }
 }

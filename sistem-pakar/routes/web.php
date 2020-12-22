@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 //login
 Route::get('login', 'PageController@login');
+Route::get('logout', 'LoginController@logout');
 Route::post('login', 'LoginController@login');
 //admin
 Route::group(['middleware' => 'cek.login', 'prefix' => 'a'], function () {
