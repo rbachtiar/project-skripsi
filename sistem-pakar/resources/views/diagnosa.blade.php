@@ -42,7 +42,7 @@
                                 </tr>
                                 <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Solusi</td>
-                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{$data[0]->solusi}}</td>
+                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{!!$data[0]->solusi!!}</td>
                                 </tr>
                                </tbody>
                               </table>

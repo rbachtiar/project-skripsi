@@ -39,11 +39,11 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Info Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="info" required>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Info Penyakit" name="info" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Solusi Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="solusi" required>
+                    <textarea type="text" class="form-control" id="solusi"> </textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Solusi Penyakit</label>
-                    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Masukkan Penyakit" name="solusi_edit" required>
+                    <textarea type="text" class="form-control" id="solusi-edit"> </textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -127,12 +127,19 @@
         //tambah penyakit
         $('body').on('submit', '#form-penyakit', function(e) {
             e.preventDefault();
-            var data = $("#form-penyakit").serialize();
-            console.log(data);
+            // var data = $("#form-penyakit").serialize();
+            var formData = new FormData();
+            // var kode = $("#id").val();
+            formData.append('kode_penyakit', $("input[name=kode_penyakit]").val());
+            formData.append('penyakit', $("input[name=penyakit]").val());
+            formData.append('info', $("input[name=info]").val());
+            formData.append('solusi', tinymce.get('solusi').getContent());
                 $.ajax({
                     type: 'POST',
                     url: '{{url('a/penyakit')}}',
-                    data: data, 
+                    data: formData, 
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         if(data.store == "success") {
                             Swal.fire({
@@ -199,7 +206,7 @@
                     $("input[name=kode_penyakit_edit]").val(data.data[0].kode_penyakit);
                     $("input[name=penyakit_edit]").val(data.data[0].penyakit);
                     $("input[name=info_edit]").val(data.data[0].info);
-                    $("input[name=solusi_edit]").val(data.data[0].solusi);
+                    tinymce.get('solusi-edit').setContent(data.data[0].solusi);
                 }
             });
         });
@@ -211,7 +218,7 @@
             var kode = $("#id").val();
             formData.append('penyakit', $("input[name=penyakit_edit]").val());
             formData.append('info', $("input[name=info_edit]").val());
-            formData.append('solusi', $("input[name=solusi_edit]").val());
+            formData.append('solusi', tinymce.get('solusi-edit').getContent());
             $.ajax({
                 type: 'POST',
                 url: '{{url('a/penyakit/update')}}' + '/' + kode,

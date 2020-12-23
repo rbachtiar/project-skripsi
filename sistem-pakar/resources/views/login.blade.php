@@ -21,8 +21,8 @@
     <div class="form-box">
       <div class="button-box">
         <div id="btn"></div>
-        <button type="button" class="toggle-btn" onclick=login()>Log In</button>
-        <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        <button type="submit" class="toggle-btn">Log In</button>
+        <!-- - <button type="button" class="toggle-btn" onclick="register()">Register</button> --> -->
       </div>
       <form id="login" class="form-group" method="post" action="login">
       @csrf
@@ -31,13 +31,13 @@
         <input type="checkbox" class="check-box" /><span>Remmber Password</span>
         <button type="submit" class="submmit-btn">Log in</button>
       </form>
-      <form id="register" class="form-group">
+      <!-- <form id="register" class="form-group">
         <input type="text" class="input-field" placeholder="User ID" required />
         <input type="email" class="input-field" placeholder="Email" required />
         <input type="text" class="input-field" placeholder="Enter Password" required />
         <input type="checkbox" class="check-box" /><span>I agree to the termes &amp; conditions</span>
         <button type="submit" class="submmit-btn">Register</button>
-      </form>
+      </form> -->
     </div>
   
   
@@ -45,10 +45,10 @@
        var log=document.getElementById("login"),
             reg=document.getElementById("register"),
             btn=document.getElementById("btn");
-        function register(){
-            log.style.left="-400px";
-            reg.style.left="50px";
-            btn.style.left="110px"
+        // function register(){
+        //     log.style.left="-400px";
+        //     reg.style.left="50px";
+        //     btn.style.left="110px"
         }
       function login(){
             log.style.left="50px";

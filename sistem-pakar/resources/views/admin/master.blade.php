@@ -165,6 +165,9 @@ Coded by www.creative-tim.com
   <!-- added cdn datatable --> 
   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- tiny mce -->
+  <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+  <script src="{{ asset('tinymcs.js') }}"></script>
 
   <script>
     $(document).ready(function() {
