@@ -30,6 +30,7 @@
                                  <td class="column100 column2" data-column="column2">{{$d->penyakit}}</td>
                                  <td class="column100 column3" data-column="column3">{{$d->info}}</td>					   
                                 </tr>
+                                <?php $no++ ?>
                                  @endforeach
                                </tbody>
                               </table>
