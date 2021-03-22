@@ -13,12 +13,6 @@
                         <div class="wrap-table100">
                            <div class="table100 ver6 m-b-110">
                               <table data-vertable="ver6" style="margin-top: 80px;">
-                               <!-- <thead>
-                                <tr class="row100 head">
-                                 <th class="column100 column1" data-column="column1">NAMA</th>
-                                 <th class="column100 column2" data-column="column2" style="width: 175px;">GEJALA</th>
-                                </tr>
-                               </thead> -->
                                <tbody>
                                 <tr class="row100">
                                  <td class="column100" data-column="column1" style="width: 300px; font-size: 20px">Nama</td>
@@ -27,22 +21,26 @@
                                 <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Gejala</td>
                                  <td class="column100 column2" data-column="column2" style="font-size: 20px;">
-                                 @foreach($gejala as $g)
+                                 @foreach($gejalaUser as $g)
                                  {{$g->gejala}} <br>
                                  @endforeach
                                  </td>
                                 </tr>
                                 <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Penyakit</td>
-                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{$data[0]->penyakit}}</td>
+                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->penyakit : "Penyakit tidak diketahui"}}</td>
+                                </tr>
+                                <tr class="row100">
+                                 <td class="column100 column1" data-column="column1" style="font-size: 20px;">Persentase</td>
+                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->persentase : "-"}}%</td>
                                 </tr>
                                 <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Info</td>
-                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{$data[0]->info}}</td>
+                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->info : "-"}}</td>
                                 </tr>
                                 <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Solusi</td>
-                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{!!$data[0]->solusi!!}</td>
+                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{!! isset($data[0]->penyakit) ? $data[0]->solusi : "-"!!}</td>
                                 </tr>
                                </tbody>
                               </table>

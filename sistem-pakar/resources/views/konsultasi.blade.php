@@ -60,17 +60,12 @@
       //tampil konsultasi
       function loadKonsultasi(params)
       {
-         // var params = "G1";
          $("#gejala").empty();
-         // var mKode = kode;
-         // var mYa = ya;
-         // var mTidak = tidak;
-         // console.log(mKode);
          $.ajax({
             type: 'GET',
             url: '{{url('konsultasi/data')}}' + '/' + params,
             success: function(data) {
-               console.log(data.data[0].kode_gejala);
+               // console.log(data.data[0].kode_gejala);
                $("#gejala-hide").val(data.data[0].gejala);
                $("#gejala").append(data.data[0].gejala);
                $("#kode-ya").val(data.data[0].ya);
@@ -81,31 +76,32 @@
 
       $('body').on('click', '#btn-ya', function(e) {
          e.preventDefault();
-         // console.log('ok');
          var params = $("#kode-ya").val();
          $.ajax({
                type: 'GET',
                url: '{{url('konsultasi/data')}}' + '/' + params,
                success: function(data) {
                   if(data.next == "P") {
-                     console.log(data.data);
+                     // console.log(data.data);
                      var penyakit = params
-                     $.ajax({
-                        type: 'POST',
-                        url: '{{url('konsultasi/post')}}',
-                        data: {kode:penyakit},
-                        success: function(data) {
-                           if(data.update_pengunjung == "success") {
-                              window.location.href = 'http://127.0.0.1:8000/diagnosa';
-                           }
-                        }
-                     });
+                     window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
+                     // $.ajax({
+                     //    type: 'POST',
+                     //    url: '{{url('konsultasi/post')}}',
+                     //    data: {kode:penyakit},
+                     //    success: function(data) {
+                     //       if(data.update_pengunjung == "success") {
+                     //          window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
+                     //       }
+                     //    }
+                     // });
                   } else if(data.next == "G"){
                      loadKonsultasi(params);
                      var form = new FormData();
                      var gejala = $("#gejala-hide").val();
-                     console.log(gejala);
+                     // console.log(gejala);
                      form.append('gejala', gejala);
+                     form.append('kode_gejala', params);
                      $.ajax({
                         type: 'POST',
                         url: '{{url('konsultasi/save')}}',
@@ -113,7 +109,7 @@
                         contentType: false,
                         processData: false,
                         success: function(data) {
-                           console.log(data.save_gejala);
+                           // console.log(data.save_gejala);
                         }
                      });
                   }
@@ -129,18 +125,19 @@
                url: '{{url('konsultasi/data')}}' + '/' + params,
                success: function(data) {
                   if(data.next == "P") {
-                     var penyakit = params
-                     $.ajax({
-                        type: 'POST',
-                        url: '{{url('konsultasi/post')}}',
-                        data: {kode:penyakit},
-                        success: function(data) {
-                           console.log('save  jalan');
-                           if(data.update_pengunjung == "success") {
-                              window.location.href = 'http://127.0.0.1:8000/diagnosa';
-                           }
-                        }
-                     });
+                     var penyakit = params;
+                     window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
+                     // $.ajax({
+                     //    type: 'POST',
+                     //    url: '{{url('konsultasi/post')}}',
+                     //    data: {kode:penyakit},
+                     //    success: function(data) {
+                     //       // console.log('save  jalan');
+                     //       if(data.update_pengunjung == "success") {
+                     //          window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
+                     //       }
+                     //    }
+                     // });
                   } else if(data.next == "G"){
                      loadKonsultasi(params);
                   }
