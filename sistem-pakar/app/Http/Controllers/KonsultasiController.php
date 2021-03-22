@@ -28,7 +28,6 @@ class KonsultasiController extends Controller
             'nama' => $request->nama ?? null,
             'alamat' => $request->alamat ?? null,
             'email' => $request->email ?? null,
-            'persentase' => ""
         ];
         $save = DB::table('pengunjung')->insert($data);
         $id = DB::getPdo()->lastInsertId();

@@ -65,6 +65,20 @@ class PageController extends Controller
             $a++;
         }
         unset($gejala[52]);
+        $gejala[count($gejala)] = $kode_penyakit;
+        //cari rules
+        for ($i=0; $i < count($gejala); $i++) { 
+            $gejala2Array[] = DB::table('rules')
+            ->where('ya', $gejala[$i])
+            ->value('kode_gejala');
+        }
+        $gejala3Array = array();
+        for ($i=0; $i < count($gejala2Array); $i++) { 
+            $checkGejala = $gejala2Array[$i];
+            if($checkGejala) {
+                array_push($gejala3Array, $checkGejala);
+            }
+        }
         if(session('id') == "") {
             return redirect('pre');
         }
@@ -74,21 +88,21 @@ class PageController extends Controller
         for ($i=0; $i < count($gejalaUser); $i++) { 
             $gejalaUserArray[] = $gejalaUser[$i]->kode_gejala;
         }
-        $gejala_cocok = array_intersect($gejala, $gejalaUserArray);
-        $gejala_cocok = count($gejala_cocok);
-        $jumlah_gejala = count($gejala);
-        $persentase = $gejala_cocok / $jumlah_gejala * 100;
-        $penyakit = "";
-        if($persentase <= 50) {
+        $jumlah_gejala = count($gejala3Array);
+        $jumlah_gejala_user = count($gejalaUserArray);
+        if($jumlah_gejala == $jumlah_gejala_user) {
+            $status_penyakit_ditemukan = true;
+        } else {
+            $status_penyakit_ditemukan = false;
+        }
+        if(!$status_penyakit_ditemukan) {
             $penyakit = "0";
         } else {
             $penyakit = $kode_penyakit;
         }
-        // dd($penyakit);
         //update pengunjung
         $kode = [
             'kode_penyakit' => $penyakit,
-            'persentase' => $persentase
         ];
         DB::table('pengunjung')->where('id', $id)->update($kode);
         if($penyakit == "0") {

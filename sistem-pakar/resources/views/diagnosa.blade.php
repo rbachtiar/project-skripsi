@@ -31,10 +31,6 @@
                                  <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->penyakit : "Penyakit tidak diketahui"}}</td>
                                 </tr>
                                 <tr class="row100">
-                                 <td class="column100 column1" data-column="column1" style="font-size: 20px;">Persentase</td>
-                                 <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->persentase : "-"}}%</td>
-                                </tr>
-                                <tr class="row100">
                                  <td class="column100 column1" data-column="column1" style="font-size: 20px;">Info</td>
                                  <td class="column100 column2" data-column="column2" style="font-size: 20px;">{{ isset($data[0]->penyakit) ? $data[0]->info : "-"}}</td>
                                 </tr>

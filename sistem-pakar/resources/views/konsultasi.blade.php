@@ -18,6 +18,7 @@
                           </div>
                           <center style="margin: auto;">
                           <input type="hidden" id="gejala-hide">
+                          <input type="hidden" id="kode-gejala-hide">
                               <span id="gejala">
                                  <!-- Bau mulut tak sedap ? -->
                               </span>
@@ -66,6 +67,7 @@
             url: '{{url('konsultasi/data')}}' + '/' + params,
             success: function(data) {
                // console.log(data.data[0].kode_gejala);
+               $("#kode-gejala-hide").val(data.data[0].kode_gejala);
                $("#gejala-hide").val(data.data[0].gejala);
                $("#gejala").append(data.data[0].gejala);
                $("#kode-ya").val(data.data[0].ya);
@@ -84,6 +86,22 @@
                   if(data.next == "P") {
                      // console.log(data.data);
                      var penyakit = params
+                     var form = new FormData();
+                     var gejala = $("#gejala-hide").val();
+                     var kode_gejala = $("#kode-gejala-hide").val();
+                     console.log(gejala);
+                     form.append('gejala', gejala);
+                     form.append('kode_gejala', kode_gejala);
+                     $.ajax({
+                        type: 'POST',
+                        url: '{{url('konsultasi/save')}}',
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                           // console.log(data.save_gejala);
+                        }
+                     });
                      window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
                      // $.ajax({
                      //    type: 'POST',
@@ -99,9 +117,10 @@
                      loadKonsultasi(params);
                      var form = new FormData();
                      var gejala = $("#gejala-hide").val();
+                     var kode_gejala = $("#kode-gejala-hide").val();
                      // console.log(gejala);
                      form.append('gejala', gejala);
-                     form.append('kode_gejala', params);
+                     form.append('kode_gejala', kode_gejala);
                      $.ajax({
                         type: 'POST',
                         url: '{{url('konsultasi/save')}}',
