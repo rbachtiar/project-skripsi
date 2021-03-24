@@ -99,7 +99,7 @@
                         contentType: false,
                         processData: false,
                         success: function(data) {
-                           // console.log(data.save_gejala);
+                           console.log(data.save_gejala);
                         }
                      });
                      window.location.href = 'http://127.0.0.1:8000/diagnosa?kode='+penyakit;
